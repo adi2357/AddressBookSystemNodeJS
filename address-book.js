@@ -218,8 +218,27 @@ function editField(firstName, lastName, fieldName, updatedField) {
             default:
                 throw "Field for Updation : " + fieldName + " is Invalid!";
         }
-        console.log("ADDRESS BOOK ARRAY AFTER UPADTING CONTACT : ");
+        console.log("ADDRESS BOOK ARRAY AFTER UPADTING CONTACT : " + firstName + " " + lastName);
         addressBookArray.forEach(contact => process.stdout.write(contact.toString()));
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+//UC5 : Find and Delete a Contact From Address Book Array
+try {
+    deleteContact("Bhumesh", "Kumar");
+} catch (error) {
+    console.error(error);
+}
+function deleteContact(firstName, lastName) {
+    try {
+        let index = addressBookArray.findIndex(contact => contact._firstName == firstName && contact._lastName == lastName);
+        if (index != -1) {
+            addressBookArray.splice(index, 1);
+            console.log("ADDRESS BOOK ARRAY AFTER DELETING CONTACT : " + firstName + " " + lastName);
+            addressBookArray.forEach(contact => process.stdout.write(contact.toString()));
+        } else throw "\nContact : " + firstName + " " + lastName + " doesn't exist in the Address Book Array";
     } catch (error) {
         console.error(error);
     }
