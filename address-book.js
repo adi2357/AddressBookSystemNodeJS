@@ -168,6 +168,8 @@ try {
     addContact(contactToAdd);
     contactToAdd = new Contact("Bhumesh", "Kumar", "19/120 Shringar Nagar", "Kanpur", "Uttar Pradesh", "288014", 9898965868, "bhumesh@gmail.com");
     addContact(contactToAdd);
+    contactToAdd = new Contact("Michael", "Greed", "9/12 Aloyesha Street", "Bhopal", "Madhya Pradesh", "280014", 9898465328, "michael@gmail.com");
+    addContact(contactToAdd);
     console.log("ADDRESS BOOK ARRAY :");
     addressBookArray.forEach(contact => process.stdout.write(contact.toString()));
 } catch (error) {
@@ -303,4 +305,52 @@ function searchByState(state) {
     addressBookArray.filter(contact => contact.state == state).forEach(contact => process.stdout.write(contact.toString()));
 }
 
+//UC9 : View All Contacts Grouped by City or State
+try {
+    viewContacts("state");
+    viewContacts("city");
+} catch (error) {
+    console.error(error);
+}
+function viewContacts(field) {
+    let fieldToContactMap = new Map();
+    switch (field) {
+        case "city":
+            fieldToContactMap = viewByCity();
+            console.log("ALL CONTACTS BY CITY : ");
+            console.log(fieldToContactMap);
+            break;
+        case "state":
+            fieldToContactMap = viewByState();
+            console.log("ALL CONTACTS BY STATE : ");
+            console.log(fieldToContactMap);
+            break;
+        default:
+            throw "View Field : " + field + " is Invalid!";
+    }
+}
+function viewByCity() {
+    let cityToContactMap = new Map();
+    addressBookArray.forEach(contact => {
+        if (cityToContactMap.has(contact.city)) {
+            cityToContactMap.get(contact.city).push(contact);
+        }
+        else {
+            cityToContactMap.set(contact.city, [contact]);
+        }
+    });
+    return cityToContactMap;
+}
+function viewByState() {
+    let stateToContactMap = new Map();
+    addressBookArray.forEach(contact => {
+        if (stateToContactMap.has(contact.state)) {
+            stateToContactMap.get(contact.state).push(contact);
+        }
+        else {
+            stateToContactMap.set(contact.state, [contact]);
+        }
+    });
+    return stateToContactMap;
+}
 
