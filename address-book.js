@@ -111,7 +111,7 @@ class Contact {
 }
 
 //UC1 : Creating New Contact Object
-let contact = new Contact("Aditya", "Verma", "8/11 LDA Colony", "Lucknow", "Uttar Pradesh", 226014, 9898808868, "aditya@gmail.com");
+let contact = new Contact("Aditya", "Verma", "8/11 LDA Colony", "Lucknow", "Uttar Pradesh", "226014", 9898808868, "aditya@gmail.com");
 console.log(contact.toString());
 
 //UC2 : Checking For Invalid Fields
@@ -142,7 +142,7 @@ console.log(contact.toString());
         console.error(error);
     }
     try {
-        contact.zip = 3214560;
+        contact.zip = "3214560";
     } catch (error) {
         console.error(error);
     }
@@ -158,4 +158,20 @@ console.log(contact.toString());
     }
     console.log("\nContact After Setting Fields : \n" + contact.toString());
 }
+
+//UC3 : Create an Address Book Array and Add New Contacts to it.
+let contactToAdd;
+let addressBookArray = new Array();
+try{
+    addressBookArray.push(contact);
+    contactToAdd = new Contact("Ashish", "Mishra", "11/1 Kori Colony", "Lucknow", "Uttar Pradesh", "216 012", 9899908868, "ashish@gmail.com");
+    addressBookArray.push(contactToAdd);
+    contactToAdd = new Contact("Bhumesh", "Kumar", "19/120 Shringar Nagar", "Kanpur", "Uttar Pradesh", "288014", 9898965868, "bhumesh@gmail.com");
+    addressBookArray.push(contactToAdd);
+    console.log("ADDRESS BOOK ARRAY :");
+    addressBookArray.forEach(contact => process.stdout.write(contact.toString()));
+} catch (error) {
+        console.error(error);
+}
+
 
