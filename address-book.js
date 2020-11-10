@@ -244,4 +244,11 @@ function deleteContact(firstName, lastName) {
     }
 }
 
+//UC6 : Get Number of Contacts in the Address Book Array
+function numberOfContacts(totalCount) {
+    return totalCount + 1;
+}
+let totalNumberOfContacts = addressBookArray.reduce(numberOfContacts, 0);
+console.log("Total Number of Contacts in the Address Book Array : " + totalNumberOfContacts);
+
 
