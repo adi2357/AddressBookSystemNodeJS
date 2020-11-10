@@ -272,8 +272,35 @@ function isExists(newContact) {
 function addContact(contactToAdd) {
     let alreadyExists = isExists(contactToAdd);
     if (!alreadyExists) {
-        addressBookArray.push(contactToAdd);        
-    } else throw "Contact : " + contactToAdd.firstName + " " + contactToAdd.lastName + " is already present in the Address Book Array";   
+        addressBookArray.push(contactToAdd);
+    } else throw "Contact : " + contactToAdd.firstName + " " + contactToAdd.lastName + " is already present in the Address Book Array";
+}
+
+//UC8 : Search Contact by City Or State
+try {
+    searchContact("state", "Uttar Pradesh");
+} catch (error) {
+    console.error(error);
+}
+function searchContact(field, fieldValue) {
+    switch (field) {
+        case "city":
+            searchByCity(fieldValue);
+            break;
+        case "state":
+            searchByState(fieldValue);
+            break;
+        default:
+            throw "Search Field : " + field + " is Invalid!";
+    }
+}
+function searchByCity(city) {
+    console.log("Contacts by CITY : " + city);
+    addressBookArray.filter(contact => contact.city == city).forEach(contact => process.stdout.write(contact.toString()));
+}
+function searchByState(state) {
+    console.log("Contacts by STATE : " + state);
+    addressBookArray.filter(contact => contact.state == state).forEach(contact => process.stdout.write(contact.toString()));
 }
 
 
