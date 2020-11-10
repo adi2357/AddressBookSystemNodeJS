@@ -163,11 +163,11 @@ console.log(contact.toString());
 let contactToAdd;
 let addressBookArray = new Array();
 try {
-    addressBookArray.push(contact);
+    addContact(contact);
     contactToAdd = new Contact("Ashish", "Mishra", "11/1 Kori Colony", "Lucknow", "Uttar Pradesh", "216 012", 9899908868, "ashish@gmail.com");
-    addressBookArray.push(contactToAdd);
+    addContact(contactToAdd);
     contactToAdd = new Contact("Bhumesh", "Kumar", "19/120 Shringar Nagar", "Kanpur", "Uttar Pradesh", "288014", 9898965868, "bhumesh@gmail.com");
-    addressBookArray.push(contactToAdd);
+    addContact(contactToAdd);
     console.log("ADDRESS BOOK ARRAY :");
     addressBookArray.forEach(contact => process.stdout.write(contact.toString()));
 } catch (error) {
@@ -193,9 +193,15 @@ function editField(firstName, lastName, fieldName, updatedField) {
         switch (fieldName) {
             case "firstName":
                 contact.firstName = updatedField;
+                if (isExists(contact)) {
+                    throw "Contact : " + contact.firstName + " " + contact.lastName + " is already present in the Address Book Array";
+                }
                 break;
             case "lastName":
                 contact.lastName = updatedField;
+                if (isExists(contact)) {
+                    throw "Contact : " + contact.firstName + " " + contact.lastName + " is already present in the Address Book Array";
+                }
                 break;
             case "address":
                 contact.address = updatedField;
@@ -250,5 +256,24 @@ function numberOfContacts(totalCount) {
 }
 let totalNumberOfContacts = addressBookArray.reduce(numberOfContacts, 0);
 console.log("Total Number of Contacts in the Address Book Array : " + totalNumberOfContacts);
+
+//UC7 : Check and Ensure No Duplicate entries are Present
+let newContact = new Contact("Aditya", "Verma", "8/11 LDA Colony", "Lucknow", "Uttar Pradesh", "226014", 9898808868, "aditya@gmail.com");
+try {
+    addContact(newContact);
+} catch (error) {
+    console.error(error);
+}
+function isExists(newContact) {
+    let foundContact = addressBookArray.find(contact => contact.firstName == newContact.firstName && contact.lastName == newContact.lastName);
+    if (foundContact != undefined) return true;
+    else return false;
+}
+function addContact(contactToAdd) {
+    let alreadyExists = isExists(contactToAdd);
+    if (!alreadyExists) {
+        addressBookArray.push(contactToAdd);        
+    } else throw "Contact : " + contactToAdd.firstName + " " + contactToAdd.lastName + " is already present in the Address Book Array";   
+}
 
 
