@@ -354,3 +354,29 @@ function viewByState() {
     return stateToContactMap;
 }
 
+//UC10 : View Count of Contacts by City or State
+try {
+    countContacts("state");
+    countContacts("city");
+} catch (error) {
+    console.error(error);
+}
+function countContacts(field) {
+    switch (field) {
+        case "city":
+            console.log("NUMBER OF CONTACTS BY CITY : ");
+            viewByCity().forEach((contact, city) => {
+                console.log(city + " : " + contact.reduce(numberOfContacts, 0));
+            });
+            break;
+        case "state":
+            console.log("NUMBER OF CONTACTS BY STATE : ");
+            viewByState().forEach((contact, state) => {
+                console.log(state + " : " + contact.reduce(numberOfContacts, 0));
+            });
+            break;
+        default:
+            throw "Count Field : " + field + " is Invalid!";
+    }
+}
+
