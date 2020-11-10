@@ -117,7 +117,7 @@ console.log(contact.toString());
 //UC2 : Checking For Invalid Fields
 {
     try {
-    contact.firstName = "Jo";
+        contact.firstName = "Jo";
     } catch (error) {
         console.error(error);
     }
@@ -162,7 +162,7 @@ console.log(contact.toString());
 //UC3 : Create an Address Book Array and Add New Contacts to it.
 let contactToAdd;
 let addressBookArray = new Array();
-try{
+try {
     addressBookArray.push(contact);
     contactToAdd = new Contact("Ashish", "Mishra", "11/1 Kori Colony", "Lucknow", "Uttar Pradesh", "216 012", 9899908868, "ashish@gmail.com");
     addressBookArray.push(contactToAdd);
@@ -171,7 +171,58 @@ try{
     console.log("ADDRESS BOOK ARRAY :");
     addressBookArray.forEach(contact => process.stdout.write(contact.toString()));
 } catch (error) {
+    console.error(error);
+}
+
+//UC4 : Find and Edit Existing Contact using their Name
+try {
+    editField("Aditya", "Verma", "address", "1/88 LDA Colony");
+} catch (error) {
+    console.error(error);
+}
+function findContact(firstName, lastName) {
+    let contact = addressBookArray.find(contact => contact._firstName == firstName && contact._lastName == lastName);
+    if (contact != undefined) {
+        return contact;
+    } else throw "\nContact : " + firstName + " " + lastName + " doesn't exist in the Address Book Array";
+
+}
+function editField(firstName, lastName, fieldName, updatedField) {
+    try {
+        let contact = findContact(firstName, lastName);
+        switch (fieldName) {
+            case "firstName":
+                contact.firstName = updatedField;
+                break;
+            case "lastName":
+                contact.lastName = updatedField;
+                break;
+            case "address":
+                contact.address = updatedField;
+                break;
+            case "city":
+                contact.city = updatedField;
+                break;
+            case "state":
+                contact.state = updatedField;
+                break;
+            case "zip":
+                contact.zip = updatedField;
+                break;
+            case "phoneNumber":
+                contact.phoneNumber = updatedField;
+                break;
+            case "email":
+                contact.email = updatedField;
+                break;
+            default:
+                throw "Field for Updation : " + fieldName + " is Invalid!";
+        }
+        console.log("ADDRESS BOOK ARRAY AFTER UPADTING CONTACT : ");
+        addressBookArray.forEach(contact => process.stdout.write(contact.toString()));
+    } catch (error) {
         console.error(error);
+    }
 }
 
 
