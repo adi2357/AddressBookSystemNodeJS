@@ -379,4 +379,26 @@ function countContacts(field) {
             throw "Count Field : " + field + " is Invalid!";
     }
 }
+//UC11 : Sort Entries By Name
+try {
+    sortAddressBook("name");
+} catch (error) {
+    console.error(error);
+}
+function sortAddressBook(field) {
+    switch (field) {
+        case "name":
+            console.log("ADDRESS BOOK SORTED BY NAME : ");
+            addressBookArray = addressBookArray.sort(compareByName);
+            addressBookArray.forEach(contact => process.stdout.write(contact.toString()));
+            break;
+        default:
+            throw "Sort Field : " + field + " is Invalid!";
+    }
+}
+function compareByName(a, b) {
+    if ((a.firstName + a.lastName) > (b.firstName + b.lastName)) return 1;
+    else if ((a.firstName + a.lastName) < (b.firstName + b.lastName)) return -1;
+    else return 0;
+}
 
